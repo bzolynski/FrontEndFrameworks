@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
+
 import styled from 'styled-components';
 import useDropdown from 'react-dropdown-hook';
+
 import { ReactComponent as DownArrowSvg } from '../../../assets/arrow-down.svg';
 import { ReactComponent as HomeLogo } from '../../../assets/house2.svg';
 import { ReactComponent as PublicationsLogo } from '../../../assets/publications.svg';
