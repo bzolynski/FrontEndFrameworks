@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createGlobalStyle } from 'styled-components';
+
+import store from './store/store';
+import { Provider } from 'react-redux';
+
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -50,10 +54,12 @@ const GlobalStyle = createGlobalStyle`
 
 `;
 ReactDOM.render(
-	<React.StrictMode>
-		<GlobalStyle />
-		<App />
-	</React.StrictMode>,
+	<Provider store={store}>
+		<React.StrictMode>
+			<GlobalStyle />
+			<App />
+		</React.StrictMode>
+	</Provider>,
 	document.getElementById('root')
 );
 

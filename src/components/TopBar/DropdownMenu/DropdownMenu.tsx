@@ -98,22 +98,22 @@ const DropdownMenu: FC = () => {
 				{
 					icon: <PublicationsLogo />,
 					name: 'Publications',
-					route: '/test'
+					route: '/publications'
 				},
 				{
 					icon: <PeopleLogo />,
 					name: 'People',
-					route: ''
+					route: '/people'
 				},
 				{
 					icon: <EntitiesLogo />,
 					name: 'Entities',
-					route: ''
+					route: '/entities'
 				},
 				{
 					icon: <AdministraionLogo />,
 					name: 'Administration',
-					route: ''
+					route: '/administration'
 				}
 			]
 		},
@@ -123,27 +123,27 @@ const DropdownMenu: FC = () => {
 				{
 					icon: <HomeLogo />,
 					name: 'Client contract',
-					route: ''
+					route: '/client'
 				},
 				{
 					icon: <PublicationsLogo />,
 					name: 'Supplier contract',
-					route: ''
+					route: '/supplier'
 				},
 				{
 					icon: <PeopleLogo />,
 					name: 'Corporate',
-					route: ''
+					route: '/corporate'
 				},
 				{
 					icon: <EntitiesLogo />,
 					name: 'Group Norms',
-					route: ''
+					route: '/group'
 				},
 				{
 					icon: <AdministraionLogo />,
 					name: 'Real estate contracts',
-					route: ''
+					route: '/contracts'
 				}
 			]
 		}

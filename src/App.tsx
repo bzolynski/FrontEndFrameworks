@@ -7,6 +7,7 @@ import HomePage from './pages/Home/HomePage';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 const Wrapper = styled.div`
 	background: #f5f7f9;
+	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -17,8 +18,10 @@ const Main = styled.main`
 	display: flex;
 `;
 const Content = styled.div`
-	width: 100%;
-	margin-left: 40px;
+	width: 75%;
+	padding-left: 45px;
+	padding-right: 75px;
+	display: inline-block;
 `;
 
 const App: React.FC = () => {

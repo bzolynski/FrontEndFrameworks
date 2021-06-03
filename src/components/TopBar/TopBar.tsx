@@ -16,6 +16,7 @@ const TopBarWrapper = styled.div`
 	align-items: center;
 	padding: 10px 20px;
 	background: white;
+	z-index: 100;
 `;
 
 const MainLogo = styled(mainLogo)`

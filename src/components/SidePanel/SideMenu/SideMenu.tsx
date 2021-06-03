@@ -29,7 +29,6 @@ const Wrapper = styled.div`
 	align-items: center;
 	justify-content: left;
 `;
-console.log(sideMenuItems);
 
 const SideMenu: FC = () => {
 	return (
