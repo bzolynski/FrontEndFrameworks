@@ -3,6 +3,7 @@ import IUser from '../interfaces/IUser';
 import IPhoto from '../interfaces/IPhoto';
 //import IComment from '../interfaces/Icomment';
 import IWork from '../interfaces/IWork';
+import ICompany from '../interfaces/ICompany';
 
 export default class RestService {
 	private _uri = 'https://jsonplaceholder.typicode.com';
@@ -35,8 +36,20 @@ export default class RestService {
 		return user;
 	}
 
+	public async getUsers(): Promise<IUser[]> {
+		const users: IUser[] = await fetch(`${this._uri}/users/`).then((resp) => resp.json());
+		const usersWithPhotos = Promise.all(
+			users.map(async (user) => {
+				user.photo = await this.getPhoto(user.id).then((resp) => resp);
+
+				return user;
+			})
+		);
+		return usersWithPhotos;
+	}
+
 	public async getWorks(): Promise<IWork[]> {
-		const works: IWork[] = await fetch(`${this._uri}/works/`).then((resp) => resp.json());
+		const works: IWork[] = await fetch(`${this._uri}/comments/`).then((resp) => resp.json());
 		const worksWithUser = Promise.all(
 			works.map(async (work) => {
 				work.user = await this.getUser(1).then((resp) => resp);
@@ -46,5 +59,18 @@ export default class RestService {
 		);
 
 		return worksWithUser;
+	}
+
+	public async getCompanies(): Promise<ICompany[]> {
+		const users = await this.getUsers();
+		const companies = users.map((user) => {
+			const company = user.company;
+			company.id = user.id;
+			company.photo = user.photo;
+			company.adress = `${user.address.street} ${user.address.suite}, ${user.address.city}`;
+			return company;
+		});
+
+		return companies;
 	}
 }

@@ -9,6 +9,7 @@ import {
 import { mainBoxShadowStyle } from '../../../../../styles/styles';
 import ImgAndLabel from '../../../../../components/common/ImgAndLabel';
 import DotSeparator from '../../../../../components/common/DotSeparator';
+import IWork from '../../../../../interfaces/IWork';
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -33,6 +34,7 @@ const Label = styled.h2`
 
 const TextContent = styled.p`
 	margin-left: 15px;
+	margin-right: 15px;
 	color: ${secondaryFontColor};
 `;
 
@@ -48,26 +50,30 @@ const Footer = styled.p`
 	display: flex;
 	justify-content: start;
 	align-items: center;
-	width: 100%;
+
 	color: ${footerFontColor};
 	font-size: 12px;
 `;
 
-const Work: FC = () => {
+interface IProps {
+	work: IWork;
+}
+
+const Work: FC<IProps> = ({ work }) => {
 	return (
 		<Wrapper>
-			<Label>World company SAS</Label>
-			<TextContent>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi pariatur accusamus reprehenderit sequi
-				minus doloremque dicta inventore, dignissimos praesentium quo eum laboriosam sed saepe, rem mollitia!
-				Perspiciatis ut dolores minus?
-			</TextContent>
+			<Label>{work.name}</Label>
+			<TextContent>{work.body}</TextContent>
 			<BottomBand>
-				<ImgAndLabel />
+				<ImgAndLabel text={work.user.company.name} src={work.user.photo.thumbnailUrl} />
 				<DotSeparator />
-				<ImgAndLabel />
+				<ImgAndLabel text={work.user.company.name} src={work.user.photo.thumbnailUrl} />
 				<DotSeparator />
-				<Footer>Updated 3 days ago by XXX</Footer>
+				<Footer>
+					<p>
+						Updated {work.id} days ago by {work.user.name}
+					</p>
+				</Footer>
 			</BottomBand>
 		</Wrapper>
 	);

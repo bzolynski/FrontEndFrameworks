@@ -1,15 +1,22 @@
 import { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 import StyledLink from '../../../../common/StyledLink';
+import dropdownReduer from '../../../../../store/reducers/dropdownItemReducer';
+import { changeSelectedItem } from '../../../../../store/actions/dropdownActions';
+import { useDispatch } from 'react-redux';
+
+type SelectItem = ReturnType<typeof changeSelectedItem>;
 
 export interface IDropdownItem {
 	icon: ReactElement;
 	name: string;
 	route: string;
-	setSelectedItem?: Function;
+	closeDropdown?: Function;
 }
 
-const DropdownItem: FC<IDropdownItem> = ({ icon, name, route, setSelectedItem }) => {
+const DropdownItem: FC<IDropdownItem> = ({ icon, name, route, closeDropdown }) => {
+	const dispatch = useDispatch();
+
 	const currentItem: IDropdownItem = {
 		icon: icon,
 		name: name,
@@ -26,11 +33,11 @@ const DropdownItem: FC<IDropdownItem> = ({ icon, name, route, setSelectedItem })
 		color: #03183b;
 		font-size: 13px;
 		font-weight: 600;
-		cursor: ${setSelectedItem === undefined ? 'default' : 'pointer'};
+		cursor: ${closeDropdown === undefined ? 'default' : 'pointer'};
 		border-radius: 3px;
 		text-decoration: none;
 		:hover {
-			background: ${setSelectedItem === undefined ? 'none' : 'lightgray'};
+			background: ${closeDropdown === undefined ? 'none' : 'lightgray'};
 		}
 		svg {
 			height: 1.4rem;
@@ -42,8 +49,9 @@ const DropdownItem: FC<IDropdownItem> = ({ icon, name, route, setSelectedItem })
 		<StyledLink to={route}>
 			<Wrapper
 				onClick={() => {
-					if (setSelectedItem !== undefined) {
-						setSelectedItem(currentItem);
+					if (closeDropdown !== undefined) {
+						closeDropdown();
+						dispatch<SelectItem>(changeSelectedItem(currentItem));
 					}
 				}}
 			>

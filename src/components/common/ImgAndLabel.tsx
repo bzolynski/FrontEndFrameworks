@@ -6,6 +6,7 @@ const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	color: ${secondaryFontColor};
+
 	p {
 		margin-left: 5px;
 		font-size: 12px;
@@ -19,14 +20,14 @@ const Img = styled.img`
 `;
 
 interface IProps {
-	//imgSrc: string;
-	//text: string;
+	text: string;
+	src: string;
 }
-const ImgAndLabel: FC = () => {
+const ImgAndLabel: FC<IProps> = ({ text, src }) => {
 	return (
 		<Wrapper>
-			<Img />
-			<p>Text</p>
+			<Img src={src} />
+			<p>{text}</p>
 		</Wrapper>
 	);
 };

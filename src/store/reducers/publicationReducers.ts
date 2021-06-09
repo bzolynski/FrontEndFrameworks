@@ -1,5 +1,5 @@
-import IPublication from '../interfaces/IPublication';
-import * as actionTypes from '../actions/actionTypes/publicationTypes';
+import IPublication from '../../interfaces/IPublication';
+import * as actionTypes from '../actionTypes/publicationTypes';
 
 export interface IPublicationState {
 	publications: IPublication[];

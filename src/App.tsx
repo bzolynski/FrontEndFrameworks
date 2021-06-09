@@ -3,12 +3,18 @@ import TopBar from './components/TopBar/TopBar';
 import SidePanel from './components/SidePanel/SidePanel';
 import styled from 'styled-components';
 import HomePage from './pages/Home/HomePage';
+import EntitiesPage from './pages/Entities/EntitiesPage';
+import WorkspacePage from './pages/Workspace/WorkspacePage';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { getWorks } from './store/actions/workActions';
+import { useDispatch } from 'react-redux';
 
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+type GetWorks = ReturnType<typeof getWorks>;
+
 const Wrapper = styled.div`
-	background: #f5f7f9;
 	width: 100%;
 	height: 100%;
+	background: #f5f7f9;
 	display: flex;
 	flex-direction: column;
 `;
@@ -25,6 +31,8 @@ const Content = styled.div`
 `;
 
 const App: React.FC = () => {
+	const dispatch = useDispatch();
+	dispatch<GetWorks>(getWorks());
 	return (
 		<Router>
 			<Wrapper>
@@ -35,7 +43,12 @@ const App: React.FC = () => {
 						<Route exact path="/">
 							<HomePage />
 						</Route>
-						<Route path="/test">TEST XD</Route>
+						<Route path="/entities">
+							<EntitiesPage />
+						</Route>
+						<Route path="/workspaces">
+							<WorkspacePage />
+						</Route>
 					</Content>
 				</Main>
 			</Wrapper>

@@ -3,11 +3,12 @@ import Publications from './components/Publications/Publications';
 import styled from 'styled-components';
 import Workspaces from './components/Workspaces/Workspaces';
 import ResumeWork from './components/ResumeWork/ResumeWork';
-import { getPublications } from '../../actions/publicationActions';
-import { useDispatch } from 'react-redux';
+import { getPublications } from '../../store/actions/publicationActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { IStore } from '../../store/reducers/reducers';
+import { IWorkState } from '../../store/reducers/worksReducer';
 
 type GetPublications = ReturnType<typeof getPublications>;
-type GetWorks = ReturnType<typeof getPublications>;
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -16,7 +17,12 @@ const Wrapper = styled.div`
 
 const HomePage: FC = () => {
 	const dispatch = useDispatch();
+	const { works } = useSelector<IStore, IWorkState>((state) => {
+		return { ...state.worksReducer };
+	});
 	useEffect(() => {
+		console.log('loaded');
+
 		dispatch<GetPublications>(getPublications(4));
 	}, []);
 
@@ -24,7 +30,7 @@ const HomePage: FC = () => {
 		<Wrapper>
 			<Publications />
 			<Workspaces />
-			<ResumeWork />
+			<ResumeWork works={works} label={'Resume work'} />
 		</Wrapper>
 	);
 };

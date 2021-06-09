@@ -1,17 +1,18 @@
 import { FC, useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import useDropdown from 'react-dropdown-hook';
-
 import { ReactComponent as DownArrowSvg } from '../../../assets/arrow-down.svg';
 import { ReactComponent as HomeLogo } from '../../../assets/house2.svg';
 import { ReactComponent as PublicationsLogo } from '../../../assets/publications.svg';
 import { ReactComponent as PeopleLogo } from '../../../assets/people.svg';
 import { ReactComponent as EntitiesLogo } from '../../../assets/entities2.svg';
 import { ReactComponent as AdministraionLogo } from '../../../assets/administration.svg';
-import DropdownFilter from './DropdownFilter/DropdownFilter';
+import InputFilter from '../../common/InputFilter/InputFilter';
 import DropdownSection, { IDropdownSection } from './DropdownSection/DropdownSection';
 import DropdownItem, { IDropdownItem } from './DropdownSection/DropdownItem/DropdownItem';
+import { IStore } from '../../../store/reducers/reducers';
+import { IDropdownState } from '../../../store/reducers/dropdownItemReducer';
 const DropDownWrapper = styled.div`
 	display: flex;
 	align-items: center;
@@ -75,13 +76,18 @@ const homeMenu: IDropdownItem = {
 
 const DropdownMenu: FC = () => {
 	const [ filterValue, setFilterValue ] = useState<string>('');
-	const [ selectedItem, setSelectedItem ] = useState<IDropdownItem>(homeMenu);
+
 	const [ wrapperRef, dropdownOpen, toggleDropdown, closeDropdown ] = useDropdown();
-	const selectItemAndCloseDropdown = (dropdownItem: IDropdownItem) => {
+
+	const { selectedItem } = useSelector<IStore, IDropdownState>((state) => {
+		return { ...state.dropdownReducer };
+	});
+
+	const selectCloseDropdown = () => {
 		setFilterValue('');
 		closeDropdown();
-		setSelectedItem(dropdownItem);
 	};
+
 	const Border = styled.div`
 		border: ${dropdownOpen ? '0.3px solid lightgray;' : 'none'};
 		border-radius: 3px 3px 0 0;
@@ -123,35 +129,31 @@ const DropdownMenu: FC = () => {
 				{
 					icon: <HomeLogo />,
 					name: 'Client contract',
-					route: '/client'
+					route: '/workspaces'
 				},
 				{
 					icon: <PublicationsLogo />,
 					name: 'Supplier contract',
-					route: '/supplier'
+					route: '/workspaces'
 				},
 				{
 					icon: <PeopleLogo />,
 					name: 'Corporate',
-					route: '/corporate'
+					route: '/workspaces'
 				},
 				{
 					icon: <EntitiesLogo />,
 					name: 'Group Norms',
-					route: '/group'
+					route: '/workspaces'
 				},
 				{
 					icon: <AdministraionLogo />,
 					name: 'Real estate contracts',
-					route: '/contracts'
+					route: '/workspaces'
 				}
 			]
 		}
 	];
-
-	const updateFilterParams = (e: HTMLInputElement): void => {
-		setFilterValue(e.value);
-	};
 
 	const filterDropdownContent = (): IDropdownSection[] => {
 		let items = [ ...dropdownContent ];
@@ -176,12 +178,12 @@ const DropdownMenu: FC = () => {
 			</SelectedDropdownItemContainer>
 			{dropdownOpen ? (
 				<DropDownContent>
-					<DropdownFilter filterValue={filterValue} changeFilterInput={updateFilterParams} />
+					<InputFilter setValue={setFilterValue} />
 					{filterDropdownContent().map((item, index) => {
 						if (item.items.length > 0)
 							return (
 								<DropdownSection
-									setSelectedItem={selectItemAndCloseDropdown}
+									closeDropdown={selectCloseDropdown}
 									key={item.title + index}
 									items={item.items}
 									title={item.title}

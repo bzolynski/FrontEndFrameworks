@@ -49,7 +49,7 @@ const LatestPublications: FC<IProps> = ({ publications }) => {
 		<Wrapper>
 			<Label>Latest publications</Label>
 			<PublicationsContainer>
-				{publications.map((publication) => <Publication publication={publication} />)}
+				{publications.map((publication) => <Publication key={publication.id} publication={publication} />)}
 			</PublicationsContainer>
 			<StyledLink to="/publications">
 				<Footer>See more publications</Footer>

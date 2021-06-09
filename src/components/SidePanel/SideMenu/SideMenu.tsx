@@ -9,7 +9,7 @@ const sideMenuItems: ISideMenuItem[] = [
 	{
 		name: 'Publications',
 		icon: <PublicationsIcon />,
-		route: ''
+		route: 'publications'
 	},
 	{
 		name: 'Ecosystem',

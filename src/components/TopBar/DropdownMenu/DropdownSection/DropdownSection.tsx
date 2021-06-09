@@ -17,16 +17,16 @@ const Wrapper = styled.div`
 export interface IDropdownSection {
 	title: string;
 	items: IDropdownItem[];
-	setSelectedItem?: Function;
+	closeDropdown?: Function;
 }
 
-const DropdownSection: FC<IDropdownSection> = ({ items, title, setSelectedItem }) => {
+const DropdownSection: FC<IDropdownSection> = ({ items, title, closeDropdown }) => {
 	return (
 		<Wrapper key={title}>
 			<h5>{title}</h5>
 			{items.map((item, index) => (
 				<DropdownItem
-					setSelectedItem={setSelectedItem}
+				closeDropdown={closeDropdown}
 					key={item.name + index}
 					icon={item.icon}
 					name={item.name}

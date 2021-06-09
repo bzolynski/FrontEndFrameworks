@@ -1,5 +1,5 @@
-import IWork from '../interfaces/IWork';
-import * as actionTypes from '../actions/actionTypes/workTypes';
+import IWork from '../../interfaces/IWork';
+import * as actionTypes from '../actionTypes/workTypes';
 
 export interface IWorkState {
 	works: IWork[];

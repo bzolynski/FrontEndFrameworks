@@ -28,6 +28,8 @@ const Container = styled.div`
 `;
 
 const Workspaces: FC = () => {
+	
+
 	return (
 		<Wrapper>
 			<Label>Workspaces</Label>

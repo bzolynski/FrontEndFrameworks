@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import DisplayedPublication from './DisplayedPublication/DisplayedPublication';
 import LatestPublications from './LatestPublications/LatestPublications';
 import { mainBoxShadowStyle } from '../../../../styles/styles';
+
 import { useSelector } from 'react-redux';
-import { IStore } from '../../../../reducers/reducers';
-import { IPublicationState } from '../../../../reducers/publicationReducers';
+import { IStore } from '../../../../store/reducers/reducers';
+import { IPublicationState } from '../../../../store/reducers/publicationReducers';
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -17,6 +18,7 @@ const Wrapper = styled.div`
 `;
 
 const Publications: FC = () => {
+	
 	const { publications } = useSelector<IStore, IPublicationState>((state) => {
 		return { ...state.publicationReducer };
 	});

@@ -1,6 +1,9 @@
 import { logDOM } from '@testing-library/dom';
 import { FC, ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import StyledLink from '../../../common/StyledLink';
+import { mainFontColor, hoverFontColor } from '../../../../styles/colors';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -14,7 +17,15 @@ const Wrapper = styled.div`
 	}
 	font-weight: bold;
 	font-size: 14px;
-	color: #4d5469;
+	color: ${mainFontColor};
+	&:hover {
+		color: ${hoverFontColor};
+	}
+`;
+
+const MoreStyledLink = styled(StyledLink)`
+	margin-bottom: 2px;
+	width: 100%;
 	margin-top: 10px;
 	margin-left: 35px;
 `;
@@ -27,9 +38,11 @@ export interface ISideMenuItem {
 
 const SideMenuItem: FC<ISideMenuItem> = ({ icon, name, route }) => {
 	return (
-		<Wrapper>
-			{icon} {name}
-		</Wrapper>
+		<MoreStyledLink to={route}>
+			<Wrapper>
+				{icon} {name}
+			</Wrapper>
+		</MoreStyledLink>
 	);
 };
 

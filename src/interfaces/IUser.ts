@@ -14,5 +14,5 @@ export default interface IUser {
     phone: string;
     website: string;
     company: ICompany;
-    photo?: IPhoto;
+    photo: IPhoto;
 }

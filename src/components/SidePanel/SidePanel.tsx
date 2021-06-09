@@ -6,7 +6,8 @@ import SideMenu from './SideMenu/SideMenu';
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 25%;
+	width: 250px;
+	height: 85vh;
 `;
 
 const SidePanel: FC = () => {

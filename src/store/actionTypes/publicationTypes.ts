@@ -7,4 +7,3 @@ export interface IPublicationTypes {
 		publications: IPublication[];
 	};
 }
-

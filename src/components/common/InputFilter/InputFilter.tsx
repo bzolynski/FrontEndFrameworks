@@ -21,21 +21,19 @@ const Input = styled.input`
 	}
 `;
 
-export interface IDropdownFilter {
-	changeFilterInput: Function;
-	filterValue: string;
+export interface IInputFilter {
+	setValue: Function;
 }
 
-const DropdownFilter: FC<IDropdownFilter> = ({ changeFilterInput: changeSearchBarInput, filterValue }) => {
+const InputFilter: FC<IInputFilter> = ({ setValue }) => {
+	const setInput = (target: HTMLInputElement) => {
+		setValue(target.value);
+	};
 	return (
 		<Wrapper>
-			<Input
-				value={filterValue}
-				onChange={(x: ChangeEvent) => changeSearchBarInput(x.target)}
-				placeholder="Filter..."
-			/>
+			<Input onChange={(x: ChangeEvent) => setInput(x.target as HTMLInputElement)} placeholder="Filter..." />
 		</Wrapper>
 	);
 };
 
-export default DropdownFilter;
+export default InputFilter;

@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createGlobalStyle } from 'styled-components';
-
 import store from './store/store';
 import { Provider } from 'react-redux';
 
@@ -51,7 +50,6 @@ const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-
 `;
 ReactDOM.render(
 	<Provider store={store}>
