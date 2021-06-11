@@ -3,7 +3,7 @@ import * as actionTypes from '../actionTypes/workTypes';
 import IWork from '../../interfaces/IWork';
 import RestService from '../../services/RestService';
 
-export const getWorks = (): Promise<IWork[]> =>
+export const getWorks = (): IWork[] =>
 	((dispatch: Dispatch) => {
 		const service = new RestService();
 		service.getWorks().then((works) => {

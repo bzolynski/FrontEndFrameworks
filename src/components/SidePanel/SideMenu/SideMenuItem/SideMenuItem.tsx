@@ -1,9 +1,7 @@
-import { logDOM } from '@testing-library/dom';
 import { FC, ReactElement } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { hoverFontColor, mainFontColor } from '../../../../styles/colors';
 import StyledLink from '../../../common/StyledLink';
-import { mainFontColor, hoverFontColor } from '../../../../styles/colors';
 
 const Wrapper = styled.div`
 	display: flex;

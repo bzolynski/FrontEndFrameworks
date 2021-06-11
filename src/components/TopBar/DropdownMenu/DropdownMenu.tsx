@@ -1,18 +1,21 @@
 import { FC, useState } from 'react';
+import useDropdown from 'react-dropdown-hook';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import useDropdown from 'react-dropdown-hook';
-import { ReactComponent as DownArrowSvg } from '../../../assets/arrow-down.svg';
-import { ReactComponent as HomeLogo } from '../../../assets/house2.svg';
-import { ReactComponent as PublicationsLogo } from '../../../assets/publications.svg';
-import { ReactComponent as PeopleLogo } from '../../../assets/people.svg';
-import { ReactComponent as EntitiesLogo } from '../../../assets/entities2.svg';
 import { ReactComponent as AdministraionLogo } from '../../../assets/administration.svg';
-import InputFilter from '../../common/InputFilter/InputFilter';
-import DropdownSection, { IDropdownSection } from './DropdownSection/DropdownSection';
-import DropdownItem, { IDropdownItem } from './DropdownSection/DropdownItem/DropdownItem';
-import { IStore } from '../../../store/reducers/reducers';
+import { ReactComponent as DownArrowSvg } from '../../../assets/arrow-down.svg';
+import { ReactComponent as EntitiesLogo } from '../../../assets/entities2.svg';
+import { ReactComponent as HomeLogo } from '../../../assets/house2.svg';
+import { ReactComponent as PeopleLogo } from '../../../assets/people.svg';
+import { ReactComponent as PrivacyLogo } from '../../../assets/privacy.svg';
+import { ReactComponent as PublicationsLogo } from '../../../assets/publications.svg';
+import { ReactComponent as SettingsLogo } from '../../../assets/settings.svg';
 import { IDropdownState } from '../../../store/reducers/dropdownItemReducer';
+import { IStore } from '../../../store/reducers/reducers';
+import { IUserState } from '../../../store/reducers/userReducers';
+import InputFilter from '../../common/InputFilter/InputFilter';
+import DropdownItem, { IDropdownItem } from './DropdownSection/DropdownItem/DropdownItem';
+import DropdownSection, { IDropdownSection } from './DropdownSection/DropdownSection';
 const DropDownWrapper = styled.div`
 	display: flex;
 	align-items: center;
@@ -68,6 +71,24 @@ const DropDownContent = styled.div`
 	border-radius: 0 0 3px 3px;
 `;
 
+const UserImg = styled.img`
+	border-radius: 50%;
+	height: 25px;
+	width: 25px;
+	margin-right: 10px;
+`;
+
+const Border =
+	styled.div <
+	{ dropdownOpen: boolean } >
+	`
+	border: ${(p) => (p.dropdownOpen ? '0.3px solid lightgray;' : 'none')};
+	border-radius: 3px 3px 0 0;
+	height: 130%;
+	width: 100%;
+	position: absolute;
+`;
+
 const homeMenu: IDropdownItem = {
 	icon: <HomeLogo />,
 	name: 'Home',
@@ -76,7 +97,9 @@ const homeMenu: IDropdownItem = {
 
 const DropdownMenu: FC = () => {
 	const [ filterValue, setFilterValue ] = useState<string>('');
-
+	const { activeUser } = useSelector<IStore, IUserState>((state) => {
+		return { ...state.userReducer };
+	});
 	const [ wrapperRef, dropdownOpen, toggleDropdown, closeDropdown ] = useDropdown();
 
 	const { selectedItem } = useSelector<IStore, IDropdownState>((state) => {
@@ -88,13 +111,20 @@ const DropdownMenu: FC = () => {
 		closeDropdown();
 	};
 
-	const Border = styled.div`
-		border: ${dropdownOpen ? '0.3px solid lightgray;' : 'none'};
-		border-radius: 3px 3px 0 0;
-		height: 130%;
-		width: 100%;
-		position: absolute;
-	`;
+	const userInMenu = (): IDropdownItem => {
+		if (activeUser == null)
+			return {
+				icon: <UserImg />,
+				name: 'user',
+				route: '/user'
+			};
+		else
+			return {
+				icon: <UserImg src={activeUser.photo.thumbnailUrl} />,
+				name: activeUser.name,
+				route: '/user'
+			};
+	};
 
 	const dropdownContent: IDropdownSection[] = [
 		{
@@ -152,6 +182,22 @@ const DropdownMenu: FC = () => {
 					route: '/workspaces'
 				}
 			]
+		},
+		{
+			title: 'Account',
+			items: [
+				userInMenu(),
+				{
+					icon: <PrivacyLogo />,
+					name: 'Privacy',
+					route: '/privacy'
+				},
+				{
+					icon: <SettingsLogo />,
+					name: 'Settings',
+					route: '/settings'
+				}
+			]
 		}
 	];
 
@@ -172,7 +218,7 @@ const DropdownMenu: FC = () => {
 
 	return (
 		<DropDownWrapper>
-			<Border />
+			<Border dropdownOpen={dropdownOpen} />
 			<SelectedDropdownItemContainer>
 				<DropdownItem icon={selectedItem.icon} route={selectedItem.route} name={selectedItem.name} />
 			</SelectedDropdownItemContainer>

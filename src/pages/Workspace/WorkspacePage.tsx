@@ -1,22 +1,20 @@
 import { FC, useState } from 'react';
-import styled from 'styled-components';
-import { getEntities } from '../../store/actions/entityActions';
-import ResumeWork from '../Home/components/ResumeWork/ResumeWork';
-import officeJPG from '../../assets/office.jpg';
-import { ReactComponent as EntitiesLogo } from '../../assets/entities2.svg';
-import { ReactComponent as StructureLogo } from '../../assets/structure.svg';
-import { ReactComponent as CalendarLogo } from '../../assets/calendar.svg';
-import { footerFontColor, linkFontColor, mainFontColor, secondaryFontColor } from '../../styles/colors';
-import Panel from './components/Panel';
-import { mainBoxShadowStyle } from '../../styles/styles';
-import { Route } from 'react-router-dom';
-import StyledLink from '../../components/common/StyledLink';
-import InputFilter from '../../components/common/InputFilter/InputFilter';
 import { useSelector } from 'react-redux';
+import Select from 'react-select';
+import styled from 'styled-components';
+import { ReactComponent as CalendarLogo } from '../../assets/calendar.svg';
+import { ReactComponent as EntitiesLogo } from '../../assets/entities2.svg';
+import officeJPG from '../../assets/office.jpg';
+import { ReactComponent as StructureLogo } from '../../assets/structure.svg';
+import InputFilter from '../../components/common/InputFilter/InputFilter';
+import StyledLink from '../../components/common/StyledLink';
+import IWork from '../../interfaces/IWork';
 import { IStore } from '../../store/reducers/reducers';
 import { IWorkState } from '../../store/reducers/worksReducer';
-import IWork from '../../interfaces/IWork';
-type GetEntities = ReturnType<typeof getEntities>;
+import { footerFontColor, linkFontColor, mainFontColor } from '../../styles/colors';
+import { mainBoxShadowStyle } from '../../styles/styles';
+import ResumeWork from '../Home/components/ResumeWork/ResumeWork';
+import Panel from './components/Panel';
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -114,19 +112,45 @@ const RightSide = styled.div`
 	flex-direction: row;
 `;
 
-const WorkspacePage: FC = () => {
-	const [ isHidePanelOpen, setIsHidePanelOpen ] = useState<boolean>(false);
-	const [ filterValue, setFilterValue ] = useState<string>('');
-	const { works } = useSelector<IStore, IWorkState>((state) => {
-		return { ...state.worksReducer };
-	});
+const StyledSelect = styled(Select)`
+    width: 300px;
+`;
 
-	const PanelForPanels = styled.div`
-		display: ${isHidePanelOpen ? 'flex' : 'none'};
+const PanelForPanels = styled.div<{isHidePanelOpen:boolean}>`
+		display: ${p => p.isHidePanelOpen ? 'flex' : 'none'};
 		flex-direction: row;
 		margin-top: 15px;
 		justify-content: space-evenly;
 	`;
+
+enum Filter {
+	all,
+	my
+}
+interface IOption {
+	value: Filter;
+	label: string;
+}
+const enumList: IOption[] = [
+	{
+		value: Filter.all,
+		label: 'All items'
+	},
+	{
+		value: Filter.my,
+		label: 'My items'
+	}
+];
+
+const WorkspacePage: FC = () => {
+	const [ isHidePanelOpen, setIsHidePanelOpen ] = useState<boolean>(true);
+	const [ filterValue, setFilterValue ] = useState<string>('');
+	const { works } = useSelector<IStore, IWorkState>((state) => {
+		return { ...state.worksReducer };
+	});
+	const [ selectedFilter, setSelectedFilter ] = useState<Filter>(Filter.all);
+
+	
 
 	const filterWorks = () => {
 		let filteredWorks: IWork[] = [];
@@ -139,7 +163,18 @@ const WorkspacePage: FC = () => {
 		} else {
 			filteredWorks = works;
 		}
-		return filteredWorks;
+		let moreFilteredWorks: IWork[] = [];
+		if (selectedFilter === Filter.my) {
+			filteredWorks.forEach((work) => {
+				if (work.user.id === 1) {
+					moreFilteredWorks.push(work);
+				}
+			});
+		} else {
+			moreFilteredWorks = filteredWorks;
+		}
+
+		return moreFilteredWorks;
 	};
 
 	return (
@@ -165,7 +200,7 @@ const WorkspacePage: FC = () => {
 							<p onClick={(e) => setIsHidePanelOpen(true)}>{'open'}</p>
 						)}
 					</TopOfHidePanel>
-					<PanelForPanels>
+					<PanelForPanels isHidePanelOpen={isHidePanelOpen}>
 						<StyledLink to={'/entities'}>
 							<Panel
 								title={'Explore your entities'}
@@ -195,6 +230,11 @@ const WorkspacePage: FC = () => {
 					<Label>Lastest updates</Label>
 					<RightSide>
 						<InputFilter setValue={setFilterValue} />
+						<StyledSelect
+							options={enumList}
+							defaultValue={enumList[0]}
+							onChange={(e: IOption) => setSelectedFilter(e.value)}
+						/>
 					</RightSide>
 				</FilterBar>
 				<ResumeWork works={filterWorks()} />

@@ -19,7 +19,7 @@ const sideMenuItems: ISideMenuItem[] = [
 	{
 		name: 'Entities',
 		icon: <EntitiesIcon />,
-		route: ''
+		route: '/entities'
 	}
 ];
 

@@ -1,10 +1,12 @@
-import { FC, ReactElement } from 'react';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import pope from '../../../assets/pope.png';
 import { ReactComponent as NetworkIcon } from '../../../assets/network.svg';
-import { ReactComponent as NetworkPlusIcon } from '../../../assets/user-plus.svg';
-import { ReactComponent as PublicationsIcon } from '../../../assets/publications.svg';
 import { ReactComponent as PlusIcon } from '../../../assets/plus.svg';
+import { ReactComponent as PublicationsIcon } from '../../../assets/publications.svg';
+import { ReactComponent as NetworkPlusIcon } from '../../../assets/user-plus.svg';
+import { IStore } from '../../../store/reducers/reducers';
+import { IUserState } from '../../../store/reducers/userReducers';
 import ActionButton, { IActionButton } from './ActionButton/ActionButton';
 
 const actionButtons: IActionButton[] = [
@@ -71,26 +73,32 @@ const Actions = styled.div`
 `;
 
 const Card: FC = () => {
-	return (
-		<Wrapper>
-			<PersonDetails>
-				<Pope src={pope} />
-				<PersonName>Karol Wojtyła</PersonName>
-				<PersonCompany>Pope - Kościół katolicki</PersonCompany>
-			</PersonDetails>
-			<Actions>
-				{actionButtons.map((item, index) => (
-					<ActionButton
-						key={item.name + index}
-						icon={item.icon}
-						buttonIcon={item.buttonIcon}
-						name={item.name}
-						route={item.route}
-					/>
-				))}
-			</Actions>
-		</Wrapper>
-	);
+	const { activeUser } = useSelector<IStore, IUserState>((state) => {
+		return { ...state.userReducer };
+	});
+	if (activeUser == null) return <h1>Loading...</h1>;
+	else {
+		return (
+			<Wrapper>
+				<PersonDetails>
+					<Pope src={activeUser.photo.url} />
+					<PersonName>{activeUser.name}</PersonName>
+					<PersonCompany>{activeUser.company.name}</PersonCompany>
+				</PersonDetails>
+				<Actions>
+					{actionButtons.map((item, index) => (
+						<ActionButton
+							key={item.name + index}
+							icon={item.icon}
+							buttonIcon={item.buttonIcon}
+							name={item.name}
+							route={item.route}
+						/>
+					))}
+				</Actions>
+			</Wrapper>
+		);
+	}
 };
 
 export default Card;

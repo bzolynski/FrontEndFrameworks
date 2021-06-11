@@ -21,10 +21,8 @@ const HomePage: FC = () => {
 		return { ...state.worksReducer };
 	});
 	useEffect(() => {
-		console.log('loaded');
-
 		dispatch<GetPublications>(getPublications(4));
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<Wrapper>

@@ -11,7 +11,7 @@ export default class RestService {
 	public async getPublications(limit?: number): Promise<IPublication[]> {
 		const pubUri = limit ? `${this._uri}/posts/?_limit=${limit}` : `${this._uri}/posts/`;
 		const publications: IPublication[] = await fetch(pubUri).then((resp) => resp.json());
-		const newPublications = Promise.all(
+		const newPublications = await Promise.all(
 			publications.map(async (pub) => {
 				pub.user = await this.getUser(pub.userId).then((resp) => resp);
 				pub.photo = await this.getPhoto(pub.id).then((resp) => resp);
@@ -38,7 +38,7 @@ export default class RestService {
 
 	public async getUsers(): Promise<IUser[]> {
 		const users: IUser[] = await fetch(`${this._uri}/users/`).then((resp) => resp.json());
-		const usersWithPhotos = Promise.all(
+		const usersWithPhotos = await Promise.all(
 			users.map(async (user) => {
 				user.photo = await this.getPhoto(user.id).then((resp) => resp);
 
@@ -50,9 +50,10 @@ export default class RestService {
 
 	public async getWorks(): Promise<IWork[]> {
 		const works: IWork[] = await fetch(`${this._uri}/comments/`).then((resp) => resp.json());
-		const worksWithUser = Promise.all(
+		const worksWithUser = await Promise.all(
 			works.map(async (work) => {
-				work.user = await this.getUser(1).then((resp) => resp);
+				var number = Math.ceil(Math.random() * 10);
+				work.user = await this.getUser(number).then((resp) => resp);
 
 				return work;
 			})

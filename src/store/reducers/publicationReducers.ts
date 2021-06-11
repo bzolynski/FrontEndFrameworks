@@ -9,7 +9,7 @@ const defaultState = (): IPublicationState => ({
 	publications: []
 });
 
-export default (state = defaultState(), action: any) => {
+const publicationReducer = (state = defaultState(), action: any) => {
 	switch (action.type) {
 		case actionTypes.GET_PUBLICATIONS: {
 			const data: actionTypes.IPublicationTypes['GET_PUBLICATIONS'] = action;
@@ -22,3 +22,5 @@ export default (state = defaultState(), action: any) => {
 			return { ...state };
 	}
 };
+
+export default publicationReducer;

@@ -10,20 +10,24 @@ const Date = styled.p`
 	color: ${secondaryFontColor};
 `;
 
+const Wrapper =
+	styled.div <
+	{ fontColor?: string } >
+	`
+		width: 100%;
+		display: flex;
+		align-items: center;
+		color: ${(p) => (p.fontColor ? p.fontColor : 'black')};
+	`;
+
 interface IProps {
 	fontColor?: string;
 	user: IUser;
 }
 
 const Author: FC<IProps> = ({ fontColor, user }) => {
-	const Wrapper = styled.div`
-		width: 100%;
-		display: flex;
-		align-items: center;
-		color: ${fontColor ? fontColor : 'black'};
-	`;
 	return (
-		<Wrapper>
+		<Wrapper fontColor={fontColor}>
 			<Date>12.02.2020</Date>
 			<AuthorDetails user={user} />
 		</Wrapper>

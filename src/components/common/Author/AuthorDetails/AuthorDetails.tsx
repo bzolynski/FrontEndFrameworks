@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import czlowiekPic from '../../../../assets/czlowieklol.jpg';
-import { secondaryFontColor } from '../../../../styles/colors';
 import IUser from '../../../../interfaces/IUser';
+import { secondaryFontColor } from '../../../../styles/colors';
 const Wrapper = styled.div`
 	width: 100%;
 	display: flex;

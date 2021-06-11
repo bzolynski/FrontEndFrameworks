@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import HomePage from './pages/Home/HomePage';
 import EntitiesPage from './pages/Entities/EntitiesPage';
 import WorkspacePage from './pages/Workspace/WorkspacePage';
+import UserPage from './pages/User/UserPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { getWorks } from './store/actions/workActions';
 import { useDispatch } from 'react-redux';
-
+import { getActiveUser } from './store/actions/userActions';
 type GetWorks = ReturnType<typeof getWorks>;
+type GetActiveUser = ReturnType<typeof getActiveUser>;
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -33,6 +35,8 @@ const Content = styled.div`
 const App: React.FC = () => {
 	const dispatch = useDispatch();
 	dispatch<GetWorks>(getWorks());
+	dispatch<GetActiveUser>(getActiveUser(1));
+
 	return (
 		<Router>
 			<Wrapper>
@@ -48,6 +52,9 @@ const App: React.FC = () => {
 						</Route>
 						<Route path="/workspaces">
 							<WorkspacePage />
+						</Route>
+						<Route path="/user">
+							<UserPage />
 						</Route>
 					</Content>
 				</Main>

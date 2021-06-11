@@ -88,9 +88,9 @@ const Workspace: FC = () => {
 				<Label>Client contract</Label>
 				<BottomSection>
 					<div>
-						<ImgAndLabel text={'TOCHANGE LOL'} />
+						<ImgAndLabel src={''} text={'TOCHANGE LOL'} />
 						<DotSeparator />
-						<ImgAndLabel text={'TOCHANGE LOL'} />
+						<ImgAndLabel src={''} text={'TOCHANGE LOL'} />
 					</div>
 					<div>
 						<Footer>Last update XXXX days ago</Footer>

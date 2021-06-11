@@ -70,9 +70,7 @@ const Work: FC<IProps> = ({ work }) => {
 				<ImgAndLabel text={work.user.company.name} src={work.user.photo.thumbnailUrl} />
 				<DotSeparator />
 				<Footer>
-					<p>
-						Updated {work.id} days ago by {work.user.name}
-					</p>
+					Updated {work.id} days ago by {work.user.name}
 				</Footer>
 			</BottomBand>
 		</Wrapper>

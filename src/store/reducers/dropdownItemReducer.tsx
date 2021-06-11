@@ -14,7 +14,7 @@ const defaultState = (): IDropdownState => ({
 	}
 });
 
-export default (state = defaultState(), action: any) => {
+const dropdownReducer = (state = defaultState(), action: any) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_DROPDOWN: {
 			const data: actionTypes.IDropdownTypes['CHANGE_DROPDOWN'] = action;
@@ -29,3 +29,5 @@ export default (state = defaultState(), action: any) => {
 			return { ...state };
 	}
 };
+
+export default dropdownReducer;

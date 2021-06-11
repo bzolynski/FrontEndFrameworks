@@ -9,7 +9,7 @@ const defaultState = (): IWorkState => ({
 	works: []
 });
 
-export default (state = defaultState(), action: any) => {
+const worksReducer = (state = defaultState(), action: any) => {
 	switch (action.type) {
 		case actionTypes.GET_WORKS: {
 			const data: actionTypes.IWorkTypes['GET_WORKS'] = action;
@@ -22,3 +22,5 @@ export default (state = defaultState(), action: any) => {
 			return { ...state };
 	}
 };
+
+export default worksReducer;

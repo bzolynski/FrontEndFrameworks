@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import skyscraper from '../../../../../assets/skyscraper.png';
 import Author from '../../../../../components/common/Author/Author';
 import IPublication from '../../../../../interfaces/IPublication';
 
@@ -22,6 +21,7 @@ const Content = styled.div`
 	display: flex;
 	justify-content: end;
 	flex-direction: column;
+	margin-top: auto;
 
 	padding: 20px 10px;
 `;
@@ -31,11 +31,9 @@ const PublicationContent = styled.p`
 	color: white;
 	font-weight: 400;
 `;
-interface P {
-	publication: IPublication;
-}
-const DisplayedPublication: FC<P> = ({ publication }) => {
-	const Background = styled.div`
+
+const Background =
+	styled.div <{url: string}>`
 		position: absolute;
 		height: 350px;
 		width: 350px;
@@ -45,15 +43,20 @@ const DisplayedPublication: FC<P> = ({ publication }) => {
 		display: flex;
 		justify-content: end;
 		flex-direction: column;
-		background-image: url(${publication.photo.url});
+		background-image: url(${(p) => p.url});
 		background-repeat: no-repeat;
 		background-size: cover;
 		filter: blur(1px) saturate(120%);
 		z-index: 0;
 	`;
+
+interface P {
+	publication: IPublication;
+}
+const DisplayedPublication: FC<P> = ({ publication }) => {
 	return (
 		<div>
-			<Background />
+			<Background url={publication.photo.url} />
 			<Wrapper>
 				<Content>
 					<PublicationContent>{publication.body}</PublicationContent>

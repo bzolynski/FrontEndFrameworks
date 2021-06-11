@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react';
+import { FC, MouseEvent } from 'react';
 import styled from 'styled-components';
 import InputFilter from '../../../../components/common/InputFilter/InputFilter';
 import { mainFontColor } from '../../../../styles/colors';

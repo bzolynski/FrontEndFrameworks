@@ -6,15 +6,15 @@ const Wrapper = styled.div`
 	border-radius: 2px;
 	display: flex;
 	align-items: center;
-	width: 90%;
 	margin: 5px 10px;
+	width: 90%;
 	padding: 2px 5px;
 `;
 
 const Input = styled.input`
 	border: none;
-	width: 100%;
 	height: 20px;
+	width: 100%;
 
 	:focus {
 		outline: none;

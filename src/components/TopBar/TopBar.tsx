@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import DropDownMenu from './DropdownMenu/DropdownMenu';
 import { ReactComponent as mainLogo } from '../../assets/logo.svg';
+import StyledLink from '../common/StyledLink';
+import DropDownMenu from './DropdownMenu/DropdownMenu';
 import RightButtons from './RightButtons/RightButtons';
 import SearchBar from './SearchBar/SearchBar';
-import StyledLink from '../common/StyledLink';
 const TopBarWrapper = styled.div`
 	position: sticky;
 	top: 0;

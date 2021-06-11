@@ -1,6 +1,6 @@
 import { FC, FunctionComponent, SVGProps } from 'react';
 import styled from 'styled-components';
-import { footerFontColor, linkFontColor, mainFontColor } from '../../../styles/colors';
+import { mainFontColor } from '../../../styles/colors';
 
 const Wrapper = styled.div`
 	height: 100%;

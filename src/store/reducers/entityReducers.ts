@@ -9,7 +9,7 @@ const defaultState = (): IEntityState => ({
 	entities: []
 });
 
-export default (state = defaultState(), action: any) => {
+const entityReducer = (state = defaultState(), action: any) => {
 	switch (action.type) {
 		case actionTypes.GET_ENTITIES: {
 			const data: actionTypes.IEntityType['GET_ENTITIES'] = action;
@@ -22,3 +22,5 @@ export default (state = defaultState(), action: any) => {
 			return { ...state };
 	}
 };
+
+export default entityReducer;

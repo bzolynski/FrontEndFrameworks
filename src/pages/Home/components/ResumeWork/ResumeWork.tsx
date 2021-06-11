@@ -1,13 +1,10 @@
 import { FC, useState } from 'react';
-import styled from 'styled-components';
-import { mainFontColor } from '../../../../styles/colors';
-import Work from './Resume/Work';
-import { useSelector } from 'react-redux';
-import { IWorkState } from '../../../../store/reducers/worksReducer';
-import { IStore } from '../../../../store/reducers/reducers';
 import ReactPaginate from 'react-paginate';
-import './paginator.css';
+import styled from 'styled-components';
 import IWork from '../../../../interfaces/IWork';
+import { mainFontColor } from '../../../../styles/colors';
+import './paginator.css';
+import Work from './Resume/Work';
 
 const Wrapper = styled.div`
 	width: 100%;

@@ -1,13 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Entity from './components/Entity/Entity';
-import { getEntities } from '../../store/actions/entityActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore } from '../../store/reducers/reducers';
-import { IEntityState } from '../../store/reducers/entityReducers';
-import TopBar from './components/TopBar/TopBar';
-import { mosaicView, listView } from './components/TopBar/TopBar';
+import styled from 'styled-components';
 import ICompany from '../../interfaces/ICompany';
+import { getEntities } from '../../store/actions/entityActions';
+import { IEntityState } from '../../store/reducers/entityReducers';
+import { IStore } from '../../store/reducers/reducers';
+import Entity from './components/Entity/Entity';
+import TopBar, { mosaicView } from './components/TopBar/TopBar';
 
 type GetEntities = ReturnType<typeof getEntities>;
 
@@ -17,19 +16,26 @@ const Wrapper = styled.div`
 	flex-direction: column;
 `;
 
+const EntitiesContainer =
+	styled.div <
+	{ viewStyle: string } >
+	`
+		width: 100%;
+		${(p) => p.viewStyle};
+	`;
+
 const EntitiesPage: FC = () => {
 	const [ viewStyle, setViewStyle ] = useState<string>(mosaicView);
 	const [ filterValue, setFilterValue ] = useState<string>('');
 
 	const dispatch = useDispatch();
 
-	const EntitiesContainer = styled.div`
-		width: 100%;
-		${viewStyle};
-	`;
-	useEffect(() => {
-		dispatch<GetEntities>(getEntities());
-	}, []);
+	useEffect(
+		() => {
+			dispatch<GetEntities>(getEntities());
+		},
+		[ dispatch ]
+	);
 
 	const { entities } = useSelector<IStore, IEntityState>((state) => {
 		return { ...state.entityReducer };
@@ -47,7 +53,7 @@ const EntitiesPage: FC = () => {
 		<Wrapper>
 			{console.log('render')}
 			<TopBar setFilterValue={setFilterValue} setViewStyle={setViewStyle} />
-			<EntitiesContainer>{renderEntities()}</EntitiesContainer>
+			<EntitiesContainer viewStyle={viewStyle}>{renderEntities()}</EntitiesContainer>
 		</Wrapper>
 	);
 };
