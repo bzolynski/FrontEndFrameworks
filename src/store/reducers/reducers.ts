@@ -4,13 +4,15 @@ import worksReducer, { IWorkState } from './worksReducer';
 import dropdownReducer, { IDropdownState } from './dropdownItemReducer';
 import entityReducer, { IEntityState } from './entityReducers';
 import userReducer, { IUserState } from './userReducers';
+import profileReducer, { IProfileState } from './profileReducers';
 
 export default combineReducers({
 	publicationReducer,
 	worksReducer,
 	dropdownReducer,
 	entityReducer,
-	userReducer
+	userReducer,
+	profileReducer
 });
 
 export interface IStore {
@@ -19,4 +21,5 @@ export interface IStore {
 	dropdownReducer: IDropdownState;
 	entityReducer: IEntityState;
 	userReducer: IUserState;
+	profileReducer: IProfileState;
 }

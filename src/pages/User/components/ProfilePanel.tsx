@@ -66,10 +66,7 @@ const EmailSection = styled.div`
 	}
 `;
 
-const FormSection =
-	styled.form <
-	{ isEditing: boolean } >
-	`
+const FormSection = styled.form <{ isEditing: boolean }>`
 		margin-top: 20px;
 		display: ${(p) => (p.isEditing ? 'flex' : 'none')};
 		flex-direction: column;
@@ -89,14 +86,10 @@ const ProfilePanel: FC<IProps> = ({ user }) => {
 	};
 
 	const onFormSubmit = () => {
-		var cos = dispatch<UpdateUser>(updateActiveUser(userForm));
-		console.log(cos);
+		dispatch<UpdateUser>(updateActiveUser(userForm));
+		setIsEditing(false);
 	};
 
-	const toggleForm = () => {
-		if (isEditing) setIsEditing(false);
-		else setIsEditing(true);
-	};
 	return (
 		<Wrapper>
 			<DisplaySection>
@@ -106,7 +99,7 @@ const ProfilePanel: FC<IProps> = ({ user }) => {
 					<p>{user.company.name}</p>
 				</UserNameSection>
 				<RightSection>
-					<StyledPenLogo onClick={(e) => toggleForm()} />
+					<StyledPenLogo onClick={(e) => setIsEditing(!isEditing)} />
 					<EmailSection>
 						<p>{user.email}</p> <p>{user.phone}</p>
 					</EmailSection>

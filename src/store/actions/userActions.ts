@@ -2,7 +2,6 @@ import { Dispatch } from 'redux';
 import IUser from '../../interfaces/IUser';
 import RestService from '../../services/RestService';
 import * as actionTypes from '../actionTypes/userTypes';
-
 export const getUsers = (): IUser[] =>
 	((dispatch: Dispatch) => {
 		const service = new RestService();
@@ -27,7 +26,6 @@ export const getActiveUser = (id: number): IUser =>
 
 export const updateActiveUser = (user: IUser): IUser =>
 	((dispatch: Dispatch) => {
-		console.log(user);
 		dispatch({
 			type: actionTypes.UPDATE_ACTIVE_USER,
 			activeUser: user

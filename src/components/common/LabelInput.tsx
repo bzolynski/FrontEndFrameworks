@@ -2,13 +2,13 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { secondaryFontColor } from '../../styles/colors';
 
-interface IProps {
+type IProps = {
 	type: string;
 	defaultValue: string;
 	name: string;
 	placeholder?: string;
 	onLostFocus(value: string, name: string): void;
-}
+};
 
 const Wrapper = styled.div`
 	display: flex;

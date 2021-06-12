@@ -5,6 +5,9 @@ import { IStore } from '../../store/reducers/reducers';
 import { IUserState } from '../../store/reducers/userReducers';
 import { footerFontColor } from './../../styles/colors';
 import ProfilePanel from './components/ProfilePanel';
+import Details from './components/Details';
+import IProfile from '../../interfaces/IProfile';
+
 
 const Wrapper = styled.div`
 	display: flex;
@@ -16,14 +19,29 @@ const Wrapper = styled.div`
 	padding: 20px;
 	margin: auto;
 `;
+
 const UserPage: FC = () => {
 	const { activeUser } = useSelector<IStore, IUserState>((state) => ({ ...state.userReducer }));
+	const profile = useSelector<IStore, IProfile>((state) => state.profileReducer.profile);
 
-	const render = () => {
-		if (activeUser == null) return <h1>Loading...</h1>;
-		else return <ProfilePanel user={activeUser}>{console.log('LOLO')} </ProfilePanel>;
+
+	const renderProfileDetails = () => {
+		if (profile == null) return <h1>Loading...</h1>;
+		else return <Details details={profile.details} />;
 	};
-	return <Wrapper>{render()}</Wrapper>;
+
+	const renderPage = () => {
+		if (activeUser == null) return <Wrapper>Loading...</Wrapper>;
+		else
+			return (
+				<Wrapper>
+					<ProfilePanel user={activeUser} />
+					{renderProfileDetails()}
+				</Wrapper>
+			);
+	};
+
+	return renderPage();
 };
 
 export default UserPage;
