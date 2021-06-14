@@ -33,6 +33,7 @@ export interface IPanelInfo {
 		label: string;
 		attachement: string;
 	};
+	projects: string;
 	correspondants: {
 		id: string;
 		value: string;

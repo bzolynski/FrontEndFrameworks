@@ -9,6 +9,7 @@ import { ReactComponent as StructureLogo } from '../../assets/structure.svg';
 import InputFilter from '../../components/common/InputFilter/InputFilter';
 import StyledLink from '../../components/common/StyledLink';
 import IWork from '../../interfaces/IWork';
+import { IDropdownState } from '../../store/reducers/dropdownItemReducer';
 import { IStore } from '../../store/reducers/reducers';
 import { IWorkState } from '../../store/reducers/worksReducer';
 import { footerFontColor, linkFontColor, mainFontColor } from '../../styles/colors';
@@ -116,8 +117,11 @@ const StyledSelect = styled(Select)`
     width: 300px;
 `;
 
-const PanelForPanels = styled.div<{isHidePanelOpen:boolean}>`
-		display: ${p => p.isHidePanelOpen ? 'flex' : 'none'};
+const PanelForPanels =
+	styled.div <
+	{ isHidePanelOpen: boolean } >
+	`
+		display: ${(p) => (p.isHidePanelOpen ? 'flex' : 'none')};
 		flex-direction: row;
 		margin-top: 15px;
 		justify-content: space-evenly;
@@ -143,14 +147,13 @@ const enumList: IOption[] = [
 ];
 
 const WorkspacePage: FC = () => {
+	const { selectedWorkspace } = useSelector<IStore, IDropdownState>((state) => ({ ...state.dropdownReducer }));
 	const [ isHidePanelOpen, setIsHidePanelOpen ] = useState<boolean>(true);
 	const [ filterValue, setFilterValue ] = useState<string>('');
 	const { works } = useSelector<IStore, IWorkState>((state) => {
 		return { ...state.worksReducer };
 	});
 	const [ selectedFilter, setSelectedFilter ] = useState<Filter>(Filter.all);
-
-	
 
 	const filterWorks = () => {
 		let filteredWorks: IWork[] = [];
@@ -184,7 +187,7 @@ const WorkspacePage: FC = () => {
 				<WorkspaceTypePanel>
 					<StyledEntitiesLogo />
 					<SomeTextContainer>
-						<Label>Corporate holdings</Label>
+						<Label>{selectedWorkspace}</Label>
 						<TextContent>
 							Workspace purpose and a bit of context. This much needed description is here to remind
 							people where they are, if they are new or have poor memory.
@@ -204,7 +207,7 @@ const WorkspacePage: FC = () => {
 						<StyledLink to={'/entities'}>
 							<Panel
 								title={'Explore your entities'}
-								logo={EntitiesLogo}
+								Logo={EntitiesLogo}
 								content={
 									'Take a few minutes to look at the most important elements and specificities of your entities'
 								}
@@ -212,14 +215,14 @@ const WorkspacePage: FC = () => {
 						</StyledLink>
 						<Panel
 							title={'Structure the ownership'}
-							logo={StructureLogo}
+							Logo={StructureLogo}
 							content={
 								'Get a clear view of the ownership by looking at the relations between individuals and entities'
 							}
 						/>
 						<Panel
 							title={'Define the calendar'}
-							logo={CalendarLogo}
+							Logo={CalendarLogo}
 							content={'Prepare future events byu creating detailed plans around the life of your entity'}
 						/>
 					</PanelForPanels>

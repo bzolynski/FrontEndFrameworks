@@ -30,12 +30,11 @@ const Container = styled.div`
 
 interface IProps {
 	label?: string;
-	works : IWork[]
-
+	works: IWork[];
 }
 
 const ResumeWork: FC<IProps> = ({ works, label }) => {
-	const [ curretnPage, setCurrentPage ] = useState<number>(1);
+	const [ curretnPage, setCurrentPage ] = useState<number>(0);
 	const [ offset, setOffset ] = useState<number>(0);
 	const perPage = 10;
 
@@ -49,7 +48,7 @@ const ResumeWork: FC<IProps> = ({ works, label }) => {
 		<Wrapper>
 			{label ? <Label>{label}</Label> : <div />}
 
-			<Container>				
+			<Container>
 				{works.slice(offset, offset + perPage).map((work) => <Work key={work.id} work={work} />)}
 				<ReactPaginate
 					previousLabel={'previous'}
@@ -62,6 +61,7 @@ const ResumeWork: FC<IProps> = ({ works, label }) => {
 					onPageChange={handlePageClick}
 					containerClassName={'pagination'}
 					activeClassName={'active'}
+					initialPage={curretnPage}
 				/>
 			</Container>
 		</Wrapper>

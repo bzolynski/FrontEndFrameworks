@@ -16,6 +16,7 @@ import { IUserState } from '../../../store/reducers/userReducers';
 import InputFilter from '../../common/InputFilter/InputFilter';
 import DropdownItem, { IDropdownItem } from './DropdownSection/DropdownItem/DropdownItem';
 import DropdownSection, { IDropdownSection } from './DropdownSection/DropdownSection';
+
 const DropDownWrapper = styled.div`
 	display: flex;
 	align-items: center;
@@ -34,9 +35,12 @@ const DropDownToggler = styled.div`
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	margin: 0;
 	cursor: pointer;
+
 	svg {
+		position: absolute;
+		right: 0;
+		margin-left: auto;
 		max-height: 6px;
 		margin: 0;
 		margin-right: 10px;
@@ -217,7 +221,7 @@ const DropdownMenu: FC = () => {
 	};
 
 	return (
-		<DropDownWrapper>
+		<DropDownWrapper ref={wrapperRef}>
 			<Border dropdownOpen={dropdownOpen} />
 			<SelectedDropdownItemContainer>
 				<DropdownItem icon={selectedItem.icon} route={selectedItem.route} name={selectedItem.name} />

@@ -1,4 +1,4 @@
-import IProfile from '../../interfaces/IProfile';
+import IProfile, { IProposal } from '../../interfaces/IProfile';
 import * as actionTypes from '../actionTypes/profileTypes';
 import * as fakeDataService from '../../services/FakeDataService';
 
@@ -25,6 +25,44 @@ const profileReducer = (state = defaultState(), action: any) => {
 				...state.profile,
 				details: { ...data.details }
 			};
+			return {
+				...state,
+				profile: profile
+			};
+		}
+		case actionTypes.UPDATE_PROPOSALS: {
+			const data: actionTypes.IProfileTypes['UPDATE_PROPOSALS'] = action;
+
+			const profile: IProfile = {
+				...state.profile,
+				proposals: [ ...data.proposals ]
+			};
+
+			return {
+				...state,
+				profile: profile
+			};
+		}
+		case actionTypes.UPDATE_REVIEWS: {
+			const data: actionTypes.IProfileTypes['UPDATE_REVIEWS'] = action;
+
+			const profile: IProfile = {
+				...state.profile,
+				reviews: [ ...data.reviews ]
+			};
+			return {
+				...state,
+				profile: profile
+			};
+		}
+		case actionTypes.UPDATE_FEES: {
+			const data: actionTypes.IProfileTypes['UPDATE_FEES'] = action;
+
+			const profile: IProfile = {
+				...state.profile,
+				fees: [ ...data.fees ]
+			};
+
 			return {
 				...state,
 				profile: profile

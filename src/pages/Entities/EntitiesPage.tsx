@@ -43,7 +43,8 @@ const EntitiesPage: FC = () => {
 
 	const renderEntities = () => {
 		const filteredEntities: ICompany[] = [];
-		entities.forEach((entity) => {
+		const moreEntities = [ ...entities, ...entities ];
+		moreEntities.forEach((entity) => {
 			if (entity.name.toLocaleLowerCase().match(filterValue.toLocaleLowerCase())) filteredEntities.push(entity);
 		});
 		return filteredEntities.map((entity) => <Entity key={entity.id} entity={entity} />);
@@ -51,7 +52,6 @@ const EntitiesPage: FC = () => {
 
 	return (
 		<Wrapper>
-			{console.log('render')}
 			<TopBar setFilterValue={setFilterValue} setViewStyle={setViewStyle} />
 			<EntitiesContainer viewStyle={viewStyle}>{renderEntities()}</EntitiesContainer>
 		</Wrapper>

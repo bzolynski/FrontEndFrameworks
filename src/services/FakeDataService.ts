@@ -43,14 +43,15 @@ export const getFakeProfile = (): IProfile => {
 				label: 'Monthly 10k$ retainer',
 				attachement: 'some_attachement.jpg'
 			},
+			projects: 'Corporate M&A and international acq',
 			correspondants: [
 				{
 					id: uuidv4(),
-					value: 'First Name Last Name'
+					value: 'Name Surname'
 				},
 				{
 					id: uuidv4(),
-					value: 'First Name2 Last Name2'
+					value: 'Name Surname'
 				}
 			]
 		},

@@ -25,17 +25,17 @@ const TextContent = styled.p`
 interface IProps {
 	title: string;
 	content: string;
-	logo: FunctionComponent<SVGProps<SVGSVGElement>>;
+	Logo: FunctionComponent<SVGProps<SVGSVGElement>>;
 }
-const Panel: FC<IProps> = ({ title, content, logo }) => {
-	const Logo = styled(logo)`
-        height: 50px;
-        width: 50px;
-        margin-bottom: 10px;
-    `;
+const Panel: FC<IProps> = ({ title, content, Logo }) => {
+	const logoStyle = {
+		height: '50px',
+		width: '50px',
+		marginBottom: '10px'
+	};
 	return (
 		<Wrapper>
-			<Logo />
+			<Logo style={logoStyle} />
 			<Label>{title}</Label>
 			<TextContent>{content}</TextContent>
 		</Wrapper>

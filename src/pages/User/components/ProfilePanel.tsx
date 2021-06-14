@@ -66,7 +66,10 @@ const EmailSection = styled.div`
 	}
 `;
 
-const FormSection = styled.form <{ isEditing: boolean }>`
+const FormSection =
+	styled.form <
+	{ isEditing: boolean } >
+	`
 		margin-top: 20px;
 		display: ${(p) => (p.isEditing ? 'flex' : 'none')};
 		flex-direction: column;

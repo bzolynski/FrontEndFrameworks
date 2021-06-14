@@ -4,6 +4,7 @@ import { ReactComponent as HomeLogo } from '../../assets/house2.svg';
 
 export interface IDropdownState {
 	selectedItem: IDropdownItem;
+	selectedWorkspace: string;
 }
 
 const defaultState = (): IDropdownState => ({
@@ -11,18 +12,24 @@ const defaultState = (): IDropdownState => ({
 		icon: <HomeLogo />,
 		name: 'Home',
 		route: '/'
-	}
+	},
+	selectedWorkspace: ''
 });
 
 const dropdownReducer = (state = defaultState(), action: any) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_DROPDOWN: {
 			const data: actionTypes.IDropdownTypes['CHANGE_DROPDOWN'] = action;
-			console.log(data.selectedItem);
-
 			return {
 				...state,
 				selectedItem: data.selectedItem
+			};
+		}
+		case actionTypes.CHANGE_WORKSPACE: {
+			const data: actionTypes.IDropdownTypes['CHANGE_WORKSPACE'] = action;
+			return {
+				...state,
+				selectedWorkspace: data.selectedWorkspace
 			};
 		}
 		default:

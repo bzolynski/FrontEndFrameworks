@@ -7,6 +7,7 @@ import { ReactComponent as PublicationsIcon } from '../../../assets/publications
 import { ReactComponent as NetworkPlusIcon } from '../../../assets/user-plus.svg';
 import { IStore } from '../../../store/reducers/reducers';
 import { IUserState } from '../../../store/reducers/userReducers';
+import StyledLink from '../../common/StyledLink';
 import ActionButton, { IActionButton } from './ActionButton/ActionButton';
 
 const actionButtons: IActionButton[] = [
@@ -80,11 +81,13 @@ const Card: FC = () => {
 	else {
 		return (
 			<Wrapper>
-				<PersonDetails>
-					<Pope src={activeUser.photo.url} />
-					<PersonName>{activeUser.name}</PersonName>
-					<PersonCompany>{activeUser.company.name}</PersonCompany>
-				</PersonDetails>
+				<StyledLink to="/user">
+					<PersonDetails>
+						<Pope src={activeUser.photo.url} />
+						<PersonName>{activeUser.name}</PersonName>
+						<PersonCompany>{activeUser.company.name}</PersonCompany>
+					</PersonDetails>
+				</StyledLink>
 				<Actions>
 					{actionButtons.map((item, index) => (
 						<ActionButton

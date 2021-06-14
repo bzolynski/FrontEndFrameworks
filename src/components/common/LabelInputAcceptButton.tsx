@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { secondaryFontColor } from '../../styles/colors';
 
@@ -6,7 +6,7 @@ type IProps = {
 	type: string;
 	defaultValue?: string;
 	label: string;
-    name: string;
+	name: string;
 	placeholder?: string;
 	onAccept(value: string, name: string): void;
 	buttonText: string;

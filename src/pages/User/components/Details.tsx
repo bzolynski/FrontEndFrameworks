@@ -1,20 +1,17 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import LabelInputAcceptButton from '../../../components/common/LabelInputAcceptButton';
-import { ReactComponent as PenLogo } from '../../../assets/pen.svg';
 import { v4 as uuidv4 } from 'uuid';
-
-import { footerFontColor, mainFontColor, secondaryFontColor } from '../../../styles/colors';
-import { IDetails, IDetail } from '../../../interfaces/IProfile';
+import { ReactComponent as PenLogo } from '../../../assets/pen.svg';
+import LabelInputAcceptButton from '../../../components/common/LabelInputAcceptButton';
+import { IDetail, IDetails } from '../../../interfaces/IProfile';
 import { updateDetails } from '../../../store/actions/profileActions';
-import { isJSDocNamepathType } from 'typescript';
+import { secondaryFontColor } from '../../../styles/colors';
+
 type UpdateDetails = ReturnType<typeof updateDetails>;
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	border-top: 0.2px solid ${footerFontColor};
-	margin-top: 10px;
 `;
 const StyledPenLogo = styled(PenLogo)`
 	margin-left: auto;
@@ -95,25 +92,25 @@ const Details: FC<IProps> = ({ details }) => {
 	const removeTile = (id: string, type: DetailType) => {
 		switch (type) {
 			case DetailType.EXPERTISE: {
-				const expertises = details.expertises.filter((x) => x.id != id);
+				const expertises = details.expertises.filter((x) => x.id !== id);
 				const newDetails = { ...details, expertises };
 				dispatch<UpdateDetails>(updateDetails(newDetails));
 				break;
 			}
 			case DetailType.ADMISSION: {
-				const admissions = details.admissions.filter((x) => x.id != id);
+				const admissions = details.admissions.filter((x) => x.id !== id);
 				const newDetails = { ...details, admissions };
 				dispatch<UpdateDetails>(updateDetails(newDetails));
 				break;
 			}
 			case DetailType.COUNTY: {
-				const counties = details.counties.filter((x) => x.id != id);
+				const counties = details.counties.filter((x) => x.id !== id);
 				const newDetails = { ...details, counties };
 				dispatch<UpdateDetails>(updateDetails(newDetails));
 				break;
 			}
 			case DetailType.SPECIALITY: {
-				const specialities = details.specialities.filter((x) => x.id != id);
+				const specialities = details.specialities.filter((x) => x.id !== id);
 				const newDetails = { ...details, specialities };
 				dispatch<UpdateDetails>(updateDetails(newDetails));
 				break;

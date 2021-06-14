@@ -78,22 +78,28 @@ const Footer = styled.p`
 	color: ${footerFontColor};
 	font-size: 12px;
 `;
+type Props = {
+	label: string;
+	numOfUsers: number;
+	type: string;
+	svg: string;
+};
 
-const Workspace: FC = () => {
+const Workspace: FC<Props> = (props: Props) => {
 	return (
 		<Wrapper>
 			<TopImage />
 			<Icon src={image} />
 			<Container>
-				<Label>Client contract</Label>
+				<Label>{props.label}</Label>
 				<BottomSection>
 					<div>
-						<ImgAndLabel src={''} text={'TOCHANGE LOL'} />
+						<ImgAndLabel src={''} text={`${props.type}`} />
 						<DotSeparator />
-						<ImgAndLabel src={''} text={'TOCHANGE LOL'} />
+						<ImgAndLabel src={''} text={`${props.numOfUsers} users`} />
 					</div>
 					<div>
-						<Footer>Last update XXXX days ago</Footer>
+						<Footer>Last update {props.numOfUsers} days ago</Footer>
 					</div>
 				</BottomSection>
 			</Container>
