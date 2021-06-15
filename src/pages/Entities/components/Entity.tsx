@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import ICompany from '../../../../interfaces/ICompany';
-import {linkFontColor, footerFontColor} from '../../../../styles/colors';
-import {mainBoxShadowStyle} from '../../../../styles/styles';
+import ICompany from '../../../interfaces/ICompany';
+import {linkFontColor, footerFontColor} from '../../../styles/colors';
+import {mainBoxShadowStyle} from '../../../styles/styles';
 
 const Wrapper = styled.div`
 	height: 80px;

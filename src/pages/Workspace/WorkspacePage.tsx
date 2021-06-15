@@ -149,36 +149,6 @@ const enumList: IOption[] = [
 const WorkspacePage: FC = () => {
 	const { selectedWorkspace } = useSelector<IStore, IDropdownState>((state) => ({ ...state.dropdownReducer }));
 	const [ isHidePanelOpen, setIsHidePanelOpen ] = useState<boolean>(true);
-	const [ filterValue, setFilterValue ] = useState<string>('');
-	const { works } = useSelector<IStore, IWorkState>((state) => {
-		return { ...state.worksReducer };
-	});
-	const [ selectedFilter, setSelectedFilter ] = useState<Filter>(Filter.all);
-
-	const filterWorks = () => {
-		let filteredWorks: IWork[] = [];
-		if (filterValue != null) {
-			works.forEach((work) => {
-				if (work.name.toLowerCase().match(filterValue.toLowerCase())) {
-					filteredWorks.push(work);
-				}
-			});
-		} else {
-			filteredWorks = works;
-		}
-		let moreFilteredWorks: IWork[] = [];
-		if (selectedFilter === Filter.my) {
-			filteredWorks.forEach((work) => {
-				if (work.user.id === 1) {
-					moreFilteredWorks.push(work);
-				}
-			});
-		} else {
-			moreFilteredWorks = filteredWorks;
-		}
-
-		return moreFilteredWorks;
-	};
 
 	return (
 		<Wrapper>
@@ -228,19 +198,8 @@ const WorkspacePage: FC = () => {
 					</PanelForPanels>
 				</HidePanel>
 			</Top>
-			<Bottom>
-				<FilterBar>
-					<Label>Lastest updates</Label>
-					<RightSide>
-						<InputFilter setValue={setFilterValue} />
-						<StyledSelect
-							options={enumList}
-							defaultValue={enumList[0]}
-							onChange={(e: IOption) => setSelectedFilter(e.value)}
-						/>
-					</RightSide>
-				</FilterBar>
-				<ResumeWork works={filterWorks()} />
+			<Bottom>				
+				<ResumeWork />
 			</Bottom>
 		</Wrapper>
 	);

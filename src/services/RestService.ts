@@ -64,11 +64,14 @@ export default class RestService {
 
 	public async getCompanies(): Promise<ICompany[]> {
 		const users = await this.getUsers();
+		let counter = 0;
 		const companies = users.map((user) => {
 			const company = user.company;
 			company.id = user.id;
+			company.userId = user.id;
 			company.photo = user.photo;
 			company.adress = `${user.address.street} ${user.address.suite}, ${user.address.city}`;
+			counter++;
 			return company;
 		});
 

@@ -17,9 +17,7 @@ const Wrapper = styled.div`
 
 const HomePage: FC = () => {
 	const dispatch = useDispatch();
-	const { works } = useSelector<IStore, IWorkState>((state) => {
-		return { ...state.worksReducer };
-	});
+
 	useEffect(() => {
 		dispatch<GetPublications>(getPublications(4));
 	}, [dispatch]);
@@ -28,7 +26,7 @@ const HomePage: FC = () => {
 		<Wrapper>
 			<Publications />
 			<Workspaces />
-			<ResumeWork works={works} label={'Resume work'} />
+			<ResumeWork label={'Resume work'} />
 		</Wrapper>
 	);
 };
